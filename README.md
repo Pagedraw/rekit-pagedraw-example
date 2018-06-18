@@ -1,4 +1,4 @@
-Example App using External Components and Pagedraw
+Example App using Rekit and Pagedraw
 ========
 
 # Dependencies
