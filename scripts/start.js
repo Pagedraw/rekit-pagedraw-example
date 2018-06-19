@@ -105,3 +105,38 @@ choosePort(HOST, DEFAULT_PORT)
     }
     process.exit(1);
   });
+
+/* Starts Rekit. Taken from https://medium.freecodecamp.org/using-rekit-studio-in-an-existing-react-project-39713d9667b */
+
+const path = require('path');
+const http = require('http');
+const express = require('express');
+const rekitStudioMiddleWare = require('rekit-studio/middleware');
+const fallback = require('express-history-api-fallback');
+const pkgJson = require('../package.json');
+
+function startStudioServer() {
+  console.log('Starting Rekit Studio...');
+  const app = express();
+  const server = http.createServer(app);
+  const root = path.join(__dirname, '../node_modules/rekit-studio/dist');
+  app.use(rekitStudioMiddleWare()(server, app));
+  app.use(express.static(root));
+  app.use(fallback('index.html', { root }));
+
+  // Other files should not happen, respond 404
+  app.get('*', (req, res) => {
+    console.log('Warning: unknown req: ', req.path);
+    res.sendStatus(404);
+  });
+
+  const port = pkgJson.rekit.studioPort;
+  server.listen(port, (err) => {
+    if (err) {
+      console.error(err);
+    }
+
+    console.log(`Studio server is listening at http://localhost:${port}/`);
+  });
+}
+startStudioServer();

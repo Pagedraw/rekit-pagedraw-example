@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "express": "^4.16.3",
+    "express-history-api-fallback": "^2.2.1",
     "pagedraw-imports": "0.0.7",
-    "parse-prop-types": "0.2.0"
+    "parse-prop-types": "0.2.0",
+    "rekit-core": "^2.3.3",
+    "rekit-studio": "^2.4.0"
   },
   "dependencies": {
     "@material-ui/core": "^1.0.0",
@@ -99,5 +103,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "rekit": { "studioPort": 6090 }
 }
